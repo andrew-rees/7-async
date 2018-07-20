@@ -11,30 +11,30 @@ const request = require("request");
 //then, only run isNeighbourIn once parcelArrived = yes
 
 
-function parcel(callback) {
-    console.log("Has the parcel arrived?")
-    for (i = 1; i < 4; i++) {
-        if (i < 3) {
-            console.log(`It's ${i}pm - no parcel yet`)
-        } else if (i === 3) {
-            console.log(`It's ${i}pm - the parcel has arrived! But is the neighbour in ...`)
-            callback()
-        }
-    }
-}
-parcel(function () {
-    let randomiser = Math.round(Math.random())
-    if (randomiser === 0) {
-        console.log("No, they are not in...")
-    } else if (randomiser === 1) {
-        console.log("Yes, they are in!")
-    }
-})
+// function parcel(callback) {
+//     console.log("Has the parcel arrived?")
+//     for (i = 1; i < 4; i++) {
+//         if (i < 3) {
+//             console.log(`It's ${i}pm - no parcel yet`)
+//         } else if (i === 3) {
+//             console.log(`It's ${i}pm - the parcel has arrived! But is the neighbour in ...`)
+//             callback()
+//         }
+//     }
+// }
+// parcel(function () {
+//     let randomiser = Math.round(Math.random())
+//     if (randomiser === 0) {
+//         console.log("No, they are not in...")
+//     } else if (randomiser === 1) {
+//         console.log("Yes, they are in!")
+//     }
+// })
 
 //MORE CALLBACKS
 
-let long //I am still struggling with this - how to pass variable around without polluting global scope. Here, I want to bring long and lat from getLongLat into useLongLat, but couldn't.
-let lat //ditto
+// let long //I am still struggling with this - how to pass variable around without polluting global scope. Here, I want to bring long and lat from getLongLat into useLongLat, but couldn't.
+// let lat //ditto
 function getLongLat (postcode, callbackAPI) {
     request(`https://api.postcodes.io/postcodes/${postcode}`, function (error, response, body) {
     //console.log('error:', error);
@@ -43,10 +43,10 @@ function getLongLat (postcode, callbackAPI) {
     long = parsedPostcode.result.longitude
     lat = parsedPostcode.result.latitude
     console.log(`Postcode: ${postcode}\nLong: ${parsedPostcode.result.longitude}\nLat: ${parsedPostcode.result.latitude}`);
-    callbackAPI();
+    callbackAPI(long, lat);
     })
 }
-getLongLat("M16 9PR", function (){ //here I wanted to do a callback within this anonyoous function, but couldn't make it work. in principle can you do this?
+getLongLat("SK6 6HS", function (long, lat){ //here I wanted to do a callback within this anonyoous function, but couldn't make it work. in principle can you do this?
     request(`https://api.postcodes.io/postcodes?lon=${long}&lat=${lat}`, function (error, response, body){
     //console.log('error:', error);
     //console.log('statusCode:', response && response.statusCode);

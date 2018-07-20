@@ -71,7 +71,6 @@ Promise.all([promise3, promise4])
         console.log("promise3 was caught")
     })
 
-
 //Promise.all with real example
 
 let promise5 = new Promise(function(resolve, reject){
@@ -83,7 +82,7 @@ let promise5 = new Promise(function(resolve, reject){
             lat = parsedPostcode.result.latitude
             console.log(`Postcode: ${postcode}\nLong: ${parsedPostcode.result.longitude}\nLat: ${parsedPostcode.result.latitude}`);
             }) 
-    
+     
 })
 
 promise5.then(
